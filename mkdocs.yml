@@ -1,0 +1,95 @@
+site_name: Machine Learning Handbook
+repo_url: https://github.com/sh0tn1k/machine-learning-handbook
+repo_name: sh0tn1k/machine-learning-handbook
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/git-alt
+  features:
+    - navigation.sections
+    - navigation.indexes
+    - navigation.path
+    - navigation.tabs
+    - navigation.top # вкл. кнопку возврата наверх
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: ru
+  palette: 
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Ночь
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: День
+
+nav:
+- Machine Learning:
+  - index.md
+  - aboutml.md
+  - model.md
+  - interpretability.md
+  - train.md
+  - Supervised Learning:
+    - Supervise Learning/info.md
+    - Supervise Learning/klassification.md
+    - Supervise Learning/regresion.md
+  - Unsupervised Learning:
+    - Обучение без присмотра: Unsupervise Learning/info.md
+    - Кластеризация: Unsupervise Learning/klassterisation.md
+    - Уменьшение Размерности: Unsupervise Learning/dimensionalityreduction.md
+  - Ensemble:
+    - ensemble/info.md
+    - ensemble/begging.md
+    - ensemble/boosting.md
+  - Neural Network:
+    - nn/info.md
+    - nn/cnn.md
+- UAV:
+  - uav/info.md
+  - Mavlink:
+    - uav/mavlink/info.md
+
+plugins:
+  - search:
+      lang: 
+        - en
+        - ru
+  - mermaid2:
+      javascript: https://unpkg.com/mermaid@10.4.0/dist/mermaid.esm.min.mjs
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+extra_javascript:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+copyright: |
+  &copy; 2023 <a href="https://github.com/sh0tn1k"  target="_blank" rel="noopener">sh0tn1k</a>
