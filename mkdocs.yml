@@ -1,6 +1,6 @@
 site_name: Machine Learning Handbook
-repo_url: https://github.com/sh0tn1k/machine-learning-handbook
-repo_name: sh0tn1k/machine-learning-handbook
+repo_url: https://github.com/sh0tn1k/handbook
+repo_name: sh0tn1k/handbook
 theme:
   name: material
   icon:
