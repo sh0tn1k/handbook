@@ -1,4 +1,4 @@
-site_name: Machine Learning Handbook
+site_name: Handbook
 repo_url: https://github.com/sh0tn1k/handbook
 repo_name: sh0tn1k/handbook
 theme:
@@ -49,6 +49,9 @@ nav:
   - Neural Network:
     - nn/info.md
     - nn/cnn.md
+    - nn/edittext.md
+    - nn/rnn.md
+    - nn/attention.md
 - UAV:
   - uav/info.md
   - Mavlink:
