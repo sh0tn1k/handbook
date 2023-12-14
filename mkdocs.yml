@@ -38,6 +38,8 @@ nav:
     - Supervise Learning/info.md
     - Supervise Learning/klassification.md
     - Supervise Learning/regresion.md
+  - Self Supervised Learning:
+    - Self Supervise Learning/info.md
   - Unsupervised Learning:
     - Обучение без присмотра: Unsupervise Learning/info.md
     - Кластеризация: Unsupervise Learning/klassterisation.md
@@ -52,6 +54,8 @@ nav:
     - nn/edittext.md
     - nn/rnn.md
     - nn/attention.md
+  - Reinforcement Learning:
+    - Reinforcement learning/info.md
 - UAV:
   - uav/info.md
   - Mavlink:
