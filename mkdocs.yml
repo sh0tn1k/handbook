@@ -60,6 +60,8 @@ nav:
   - uav/info.md
   - Mavlink:
     - uav/mavlink/info.md
+- STOCK MANIPULATION:
+  - Введение: stock_manipulation/info.md
 
 plugins:
   - search:
