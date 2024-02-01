@@ -1,0 +1,2058 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../klassification/">
+      
+      
+        <link rel="next" href="../../Self%20Supervise%20Learning/info/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.6">
+    
+    
+      
+        <title>Регрессия - Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Handbook" class="md-header__button md-logo" aria-label="Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Регрессия
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Ночь"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Ночь" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="День"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="День" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sh0tn1k/handbook" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sh0tn1k/handbook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  Machine Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../uav/info/" class="md-tabs__link">
+          
+  
+    
+  
+  UAV
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../stock_manipulation/info/" class="md-tabs__link">
+          
+  
+    
+  
+  STOCK MANIPULATION
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Handbook" class="md-nav__button md-logo" aria-label="Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sh0tn1k/handbook" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sh0tn1k/handbook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aboutml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Что такое модель в машинном обучение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interpretability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Интерпретируемость моделей
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Что такое обучение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Supervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Supervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обучение под присмотром
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../klassification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Классификаци (предсказание категории объекта)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Регрессия
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Регрессия
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Линейная регрессия
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Линейная регрессия">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loss-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция потерь / Loss function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Как мы уменьшаем потери?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Как мы уменьшаем потери?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Гиперпараметры
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Градиентные спуск / gradient descent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Градиентные спуск / gradient descent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Типы градиентного спуска
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Логистическая регрессия
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Логистическая регрессия">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция потерь
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Self Supervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            Self Supervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Self%20Supervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_8" id="__nav_1_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Unsupervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Unsupervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unsupervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обучение без присмотра
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unsupervise%20Learning/klassterisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Кластеризация
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unsupervise%20Learning/dimensionalityreduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Уменьшение Размерности
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_9" id="__nav_1_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ensemble
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ensemble
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensemble/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ансамбль моделей
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensemble/begging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Беггинг
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensemble/boosting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Бустинг
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_10" id="__nav_1_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10">
+            <span class="md-nav__icon md-icon"></span>
+            Neural Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nn/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nn/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Сверточные нейронные сети
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nn/edittext.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nn/rnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Рекуррентная нейронная сеть / Recurrent neural network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nn/attention.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_11" id="__nav_1_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            Reinforcement Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning / Обучение с подкреплением
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    UAV
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            UAV
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uav/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Mavlink
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Mavlink
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uav/mavlink/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    STOCK MANIPULATION
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            STOCK MANIPULATION
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stock_manipulation/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Линейная регрессия
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Линейная регрессия">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loss-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция потерь / Loss function
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Как мы уменьшаем потери?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Как мы уменьшаем потери?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Гиперпараметры
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gradient-descent" class="md-nav__link">
+    <span class="md-ellipsis">
+      Градиентные спуск / gradient descent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Градиентные спуск / gradient descent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Типы градиентного спуска
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Логистическая регрессия
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Логистическая регрессия">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция потерь
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">Регрессия</h1>
+<p>Линейная - когда регрессия рисует прямую линию</p>
+<p>Полиномиальная - когда регрессия рисует кривую линию</p>
+<h2 id="_2">Линейная регрессия</h2>
+<dl>
+<dd>
+<p>Линейная регрессия - это метод нахождения прямой линии или гиперплоскости, которая наилучшим образом соответствует набору точек</p>
+<p><img alt="Image title" src="https://developers.google.com/static/machine-learning/crash-course/images/CricketLine.svg" /></p>
+<p>Так выглядит простая линейная регрессия
+$$
+  y = b + w_{1}x_{1}
+$$
+где:</p>
+<ul>
+<li>y — прогнозируемая метка (желаемый результат).</li>
+<li>b - это смещение(biases) (пересечение оси Y), иногда называемое w0.</li>
+<li>w — вес признака 1. Вес — это то же понятие, что и «наклон» в линейном уравнение в математике y = kx + b.</li>
+<li>x - это признак (вход).</li>
+</ul>
+<details class="info">
+<summary>Что такое bias</summary>
+<p>Bias - это параметр в моделях машинного обучения.
+В простой двумерной линии bias означает просто смещение линии.
+Например, смещение линии на следующем рисунке равно 2. Смещение существует потому, что не все модели начинаются из начала координат (0,0).
+Например, предположим, что вход в парк аттракционов стоит 2 евро и еще 0,5 евро за каждый час пребывания посетителя. Таким образом, модель, отображающая общую стоимость, имеет погрешность 2, поскольку наименьшая стоимость составляет 2 евро.
+<img alt="Image title" src="https://developers.google.com/static/machine-learning/glossary/images/bias.png" /></p>
+</details>
+<p>Хотя эта модель использует только одну фичу, более сложная модель может иметь несколько фич, каждая из которых имеет отдельный вес (w1, w2 и т. д.). Например, более сложная модель, основанная на несколько фич, может выглядеть следующим образом:</p>
+<div class="arithmatex">\[
+  y = b + w_{1}x_{1} + w_{2}x_{2} + w_{3}x_{3} + ... + w_{n}x_{n}
+\]</div>
+<h3 id="loss-function">Функция потерь / Loss function</h3>
+<p><a><b>потеря(loss)</a></b> — это число, показывающее, насколько плохим был прогноз модели на отдельном примере</p>
+<p><img alt="Image title" src="https://developers.google.com/machine-learning/crash-course/images/LossSideBySide.png" /></p>
+<p><a><b>Функция потерь</a></b> - это количественная оценка того, насколько хорошо модель предсказывает целевую переменную. Эти функции показывают, насколько сильно предсказанный моделью результат отличается от фактического.</p>
+<details class="info">
+<summary>Среднеквадратическая ошибка (MSE) / L2 loss</summary>
+<p>Это сумма квадратов разностей между предсказанными и истинными значениями, деленная на количество объектов</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">MSE на Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># импортируем библиотеку numpy</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="k">def</span> <span class="nf">mean_squared_error</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span> <span class="c1"># функция </span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>  <span class="n">diff</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">-</span> <span class="n">act</span> <span class="c1"># находим разницу между прогнозируемыми и наблюдаемыми значениями</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>  <span class="n">differences_squared</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># возводим в квадрат (чтобы избавиться от отрицательных значений)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>  <span class="n">mean_diff</span> <span class="o">=</span> <span class="n">differences_squared</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># находим среднее значение</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>  <span class="k">return</span> <span class="n">mean_diff</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="n">act</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.7</span><span class="p">])</span> <span class="c1"># создаем список актуальных значений</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="n">pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.7</span><span class="p">,</span><span class="mf">1.5</span><span class="p">])</span> <span class="c1"># список прогнозируемых значений</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">act</span><span class="p">,</span><span class="n">pred</span><span class="p">))</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="c1">#Вывод:</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="c1">#0.04666666666666667</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<details class="info">
+<summary>Корень среднеквадратической ошибки (RMSE) / L2 loss</summary>
+<p>Квадратный корень из средней квадратичной ошибки.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">RMSE на Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="k">def</span> <span class="nf">root_mean_squared_error</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>  <span class="n">diff</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">-</span> <span class="n">act</span> <span class="c1"># находим разницу между прогнозируемыми и наблюдаемыми значениями</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>  <span class="n">differences_squared</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># возводим в квадрат</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>  <span class="n">mean_diff</span> <span class="o">=</span> <span class="n">differences_squared</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># находим среднее значение</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>  <span class="n">rmse_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_diff</span><span class="p">)</span> <span class="c1"># извлекаем квадратный корень</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>  <span class="k">return</span> <span class="n">rmse_val</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">act</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.7</span><span class="p">])</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="n">pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.7</span><span class="p">,</span><span class="mf">1.5</span><span class="p">])</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">root_mean_squared_error</span><span class="p">(</span><span class="n">act</span><span class="p">,</span><span class="n">pred</span><span class="p">))</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="c1">#Вывод:</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="c1">#0.21602468994692867</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<details class="info">
+<summary>Средняя абсолютная ошибка (MAE) / L1 loss</summary>
+<p>Средняя абсолютная ошибка (MAE) рассчитывается как среднее значение абсолютной разницы между прогнозами и фактическими наблюдениями.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">MAE на Python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="k">def</span> <span class="nf">mean_absolute_error</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span> <span class="c1">#</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    <span class="n">diff</span> <span class="o">=</span> <span class="n">pred</span> <span class="o">-</span> <span class="n">act</span> <span class="c1"># находим разницу между прогнозируемыми и наблюдаемыми значениями</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>    <span class="n">abs_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span> <span class="c1">#находим абсолютную разность между прогнозами и фактическими наблюдениями</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>    <span class="n">mean_diff</span> <span class="o">=</span> <span class="n">abs_diff</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># находим среднее значение</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>    <span class="k">return</span> <span class="n">mean_diff</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="n">act</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1.7</span><span class="p">])</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="n">pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.7</span><span class="p">,</span><span class="mf">1.5</span><span class="p">])</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">act</span><span class="p">,</span><span class="n">pred</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="c1">#Вывод:</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="c1">#0.20000000000000004</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<h3 id="_3">Как мы уменьшаем потери?</h3>
+<h4 id="_4">Гиперпараметры</h4>
+<dl>
+<dd>
+<p><a href="https://serokell.io/blog/ml-optimization"><b>Гиперпараметры</b></a> — это настройки модели, которые определяют её общую структуру и способ обучения. Эти параметры устанавливаются
+до начала процесса обучения и не изменяются в процессе обучения модели. Гиперпараметры оказывают влияние на то, как модель будет обучаться, какие признаки будут учитываться, и какие ограничения будут наложены на процесс обучения. Примерами гиперпараметров могут быть количество слоев и нейронов в нейронной сети, скорость обучения, learning rate для градиентного спуска, коэффициент регуляризации и т.д.</p>
+<details class="info">
+<summary>Отличие от параметров</summary>
+<p>Различие между гиперпараметрами и параметрами модели заключается в том, что гиперпараметры задаются вручную до начала обучения и определяют характеристики всего процесса обучения, в то время как параметры модели вычисляются в процессе обучения на основе данных и оптимизируются для достижения наилучшей производительности. Гиперпараметры можно сравнить с настройками инструмента, с помощью которого вы создаете модель, а параметры модели - это результат работы этого инструмента на конкретных данных</p>
+</details>
+<details class="info">
+<summary>Поиск гиперпараметров</summary>
+<p>Выбор подходящих гиперпараметров — это чрезвычайно важный этап в создании моделей машинного обучения. Неправильный выбор гиперпараметров может привести к неудовлетворительным результатам, долгим сессиям обучения и переобучению.</p>
+<details class="info">
+<summary>Решетчатый поиск (Grid Search)</summary>
+<p>Этот метод предполагает набор значений для каждого гиперпараметра, которые затем перебираются для нахождения наилучшей комбинации. Для каждой комбинации гиперпараметров производится обучение модели и оценка её производительности на валидационных данных.</p>
+<p>Примеры:</p>
+<ul>
+<li>Для метода ближайших соседей можно, например, перебирать по сетке число соседей (например, от 1 до 20) и метрику, по которой будет измеряться расстояние между объектами выборки (евклидова, манхэттенская...);</li>
+<li>Для решающих деревьев можно перебирать по сетке сочетания значений максимальной глубины дерева и различные критерии ветвления (критерий Джини, энтропийный критерий).</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Пример кода на Python:</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c1"># Определение параметров и их значений для перебора</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>    <span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">}</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="c1"># Создание модели и настройка с использованием решетчатого поиска</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="c1"># Вывод наилучших гиперпараметров и оценки</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best Hyperparameters:&quot;</span><span class="p">,</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best Cross-Validation Score:&quot;</span><span class="p">,</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Так как этот метод гарантирует полный перебор всех заданных комбинаций гиперпараметров. Однако это может быть очень ресурсозатратным, особенно при большом числе гиперпараметров и значений.</p>
+</details>
+<details class="info">
+<summary>Случайный поиск (Random Search)</summary>
+<p>Вместо того чтобы перебирать все комбинации, случайный поиск выбирает случайные наборы значений для каждого гиперпараметра.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Пример кода на Python:</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">RandomizedSearchCV</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">randint</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1"># Определение диапазонов значений для случайного поиска</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="n">param_dist</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">randint</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>    <span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>    <span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="p">}</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="c1"># Создание модели и настройка с использованием случайного поиска</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="n">rf_model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="n">random_search</span> <span class="o">=</span> <span class="n">RandomizedSearchCV</span><span class="p">(</span><span class="n">rf_model</span><span class="p">,</span> <span class="n">param_distributions</span><span class="o">=</span><span class="n">param_dist</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="n">random_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="c1"># Вывод наилучших гиперпараметров и оценки</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best Hyperparameters:&quot;</span><span class="p">,</span> <span class="n">random_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best Cross-Validation Score:&quot;</span><span class="p">,</span> <span class="n">random_search</span><span class="o">.</span><span class="n">best_score_</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Случайный поиск может быть эффективнее в поиске оптимальных гиперпараметров, особенно когда ресурсы ограничены. Однако есть вероятность упустить некоторые комбинации, которые могли бы быть лучшими.</p>
+<p>В машинном обучении часто используются понятия "exploration" и "exploitation". Давайте представим, что вы выбираете ресторан. Если вы всегда ходите в одно место, где уверены в качестве еды, вы мало исследуете другие варианты. Однако, если каждый раз ходить в новые места, результат может быть неудовлетворительным.</p>
+<p>Аналогично в методах подбора параметров в машинном обучении происходит балансировка между исследованием новых областей (exploration) и использованием уже известных, эффективных решений (exploitation). Основное отличие методов которые будут далее от Grid Search учитывают предыдущие результаты, выбирая новые точки для изучения таким образом, чтобы либо расширять зону поиска, либо углубляться в уже известные, наилучшие варианты.</p>
+</details>
+</details>
+</dd>
+</dl>
+<h4 id="gradient-descent">Градиентные спуск / gradient descent</h4>
+<dl>
+<dd>
+<p>Градиентный спуск - это метод оптимизации основан на отрицательных градиентах для нахождения минимального значения функции потерь.
+Минимизация любой функции означает поиск минимума функции(самой глубокой впадины).
+Поиск минимума нужен для получения наименьшей возможной ошибки или повышение точности модели.
+Мы увеличиваем точность, перебирая набор учебных данных при настройке параметров нашей модели (весов и смещений).</p>
+<p>Суть алгоритма – процесс получения наименьшего значения ошибки. Аналогично это можно рассматривать как спуск во впадину в попытке найти золото на дне ущелья (самое низкое значение ошибки).</p>
+<p><img alt="Alt text" src="../../images/IMG_3056.webp" /></p>
+<p>Градиентный спуск работает, вычисляя градиенты каждого параметра функции(для всех weight и bias). Затем он уменьшает на очень малую величину параметры согласно отрицательному градиенту и смотрит насколько изменится значение функции потерь. Этот процесс повторяется до тех пор, пока функция потерь не достигнет минимального значения.</p>
+<details class="info">
+<summary>Градиент это</summary>
+<p>Градиент f(x, y) — это двумерный вектор, который сообщает вам, в каком направлении (x, y) двигаться для максимального увеличения высоты. Таким образом, отрицательный градиент перемещает вас в сторону максимального уменьшения высоты. Другими словами, отрицательный вектор градиента указывает в долину.</p>
+</details>
+<p>В машинном обучении градиенты используются при градиентном спуске. У нас часто есть функция потерь многих переменных, которую мы пытаемся минимизировать, и мы пытаемся сделать это, следуя отрицательному градиенту функции.</p>
+<p>Градиентный спуск имеет несколько параметров, которые могут быть настроены для улучшения его эффективности:</p>
+<ul>
+<li><b>Скорость обучения (learning rate) или шаг:</b> это параметр, который контролирует размер шага градиентного спуска. Если коэффициент скорости обучения слишком большой, градиентный спуск может перепрыгнуть через минимум функции потерь. Если коэффициент скорости обучения слишком маленький, градиентный спуск будет слишком медленным. Алгоритмы градиентного спуска умножают градиент на learning rate, чтобы определить следующую точку. Например, если величина градиента равна 2,5, а скорость обучения равна 0,01, то алгоритм градиентного спуска выберет следующую точку на расстоянии 0,025 от предыдущей точки.</li>
+</ul>
+<h5 id="_5">Типы градиентного спуска</h5>
+<p>Существует несколько типов градиентного спуска:</p>
+<ul>
+<li><b>Стохастический градиентный спуск</b> - Алгоритм градиентного спуска, в котором размер батча равен единице. Другими словами, SGD обучается на одном примере, выбранном случайным образом из обучающего множества(train set).</li>
+<li><b>Mini-batch stochastic gradient descent</b> - это самый простой тип градиентного спуска. Он вычисляет градиент функции потерь для каждого примера обучения и делает шаг в этом направлении.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<h2 id="_6">Логистическая регрессия</h2>
+<p>Логистическая регрессия генерирует вероятность — значение от 0 до 1, исключающее. Например, рассмотрим модель логистической регрессии для обнаружения спама. Если модель выводит значение 0,932 для конкретного сообщения электронной почты, это означает, что вероятность того, что сообщение электронной почты является спамом, составляет 93,2 %.</p>
+<p>Как модель логистической регрессии может гарантировать, что выходные данные всегда находятся в диапазоне от 0 до 1. Как оказалось, сигмоидальная функция, определенная следующим образом, выдает выходные данные с теми же характеристиками:</p>
+<div class="arithmatex">\[
+y = \frac{1}{1 + e^-z }
+\]</div>
+<p>где:</p>
+<ul>
+<li>y – выходные данные модели логистической регрессии для конкретного примера.</li>
+<li>z = b + w1x1 + w2x2 + … wnxn<ul>
+<li>Тем w values — это изученные весовые коэффициенты модели, и b является предвзятостью.</li>
+<li>Тем x values — это значения признаков для конкретного примера.</li>
+</ul>
+</li>
+</ul>
+<p>Сигмоидальная функция дает следующий график:</p>
+<p><img alt="Alt text" src="../../images/SigmoidFunction.png" /></p>
+<p>Обратите внимание, что также называется логарифмическими шансами, потому что обратная сигмовидная величина гласит, что может быть определен как логарифм вероятности (например, «Собака лает»), деленная на вероятность (например, «Собака не лает»):</p>
+<div class="arithmatex">\[
+z = log(\frac{y}{1 - y})
+\]</div>
+<details class="info">
+<summary>Пример</summary>
+<p>Предположим, у нас есть модель логистической регрессии с тремя функциями, которая изучила следующие смещения и веса:
+$$
+b = 1
+$$
+$$
+w_{1} = 2
+$$
+$$
+w_{2} = -1
+$$
+$$
+w_{3} = 5
+$$
+Далее предположим следующие значения признаков для данного примера:
+$$
+x_{1} = 0
+$$
+$$
+x_{2} = 10
+$$
+$$
+x_{3} = 2
+$$
+Таким образом, логарифмические шансы:
+$$
+b + w_{1}x_{1} + w_{2}x_{2} + w_{3}x_{3}
+$$
+будет:
+$$
+1 + 2 * 0 + (-1) * 10 + 5 * 2 = 1
+$$
+Следовательно, прогноз логистической регрессии для этого конкретного примера будет равен 0,731:
+$$
+y = \frac{1}{1 + e^-1} = 0.731
+$$
+вероятность 73,1%.</p>
+</details>
+<h3 id="_7">Функция потерь</h3>
+<p>Log Loss - функция потерь для логистической регрессии</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/sh0tn1k"  target="_blank" rel="noopener">sh0tn1k</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

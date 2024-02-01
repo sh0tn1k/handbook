@@ -1,0 +1,1822 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../ensemble/boosting/">
+      
+      
+        <link rel="next" href="../cnn/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.6">
+    
+    
+      
+        <title>Neural Network - Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#neural-network" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Handbook" class="md-header__button md-logo" aria-label="Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Neural Network
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Ночь"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Ночь" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="День"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="День" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sh0tn1k/handbook" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sh0tn1k/handbook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../.." class="md-tabs__link">
+          
+  
+    
+  
+  Machine Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../uav/info/" class="md-tabs__link">
+          
+  
+    
+  
+  UAV
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../stock_manipulation/info/" class="md-tabs__link">
+          
+  
+    
+  
+  STOCK MANIPULATION
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Handbook" class="md-nav__button md-logo" aria-label="Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sh0tn1k/handbook" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sh0tn1k/handbook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aboutml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Что такое модель в машинном обучение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interpretability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Интерпретируемость моделей
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../train/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Что такое обучение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Supervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Supervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Supervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обучение под присмотром
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Supervise%20Learning/klassification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Классификаци (предсказание категории объекта)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Supervise%20Learning/regresion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Регрессия
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Self Supervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            Self Supervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Self%20Supervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_8" id="__nav_1_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Unsupervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Unsupervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unsupervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обучение без присмотра
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unsupervise%20Learning/klassterisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Кластеризация
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Unsupervise%20Learning/dimensionalityreduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Уменьшение Размерности
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_9" id="__nav_1_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ensemble
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ensemble
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensemble/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ансамбль моделей
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensemble/begging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Беггинг
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ensemble/boosting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Бустинг
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_10" id="__nav_1_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_10">
+            <span class="md-nav__icon md-icon"></span>
+            Neural Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция Активации
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Функция Активации">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ступенчатая функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Линейная функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Сигмоидальная функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tanh функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relu" class="md-nav__link">
+    <span class="md-ellipsis">
+      ReLu
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Обучение нейросети
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Архитектура нейронных сетей
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Сверточные нейронные сети
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edittext.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Рекуррентная нейронная сеть / Recurrent neural network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attention.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_11" id="__nav_1_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            Reinforcement Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reinforcement%20learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning / Обучение с подкреплением
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    UAV
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            UAV
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uav/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Mavlink
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Mavlink
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../uav/mavlink/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    STOCK MANIPULATION
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            STOCK MANIPULATION
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stock_manipulation/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Функция Активации
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Функция Активации">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ступенчатая функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Линейная функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Сигмоидальная функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tanh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tanh функция
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relu" class="md-nav__link">
+    <span class="md-ellipsis">
+      ReLu
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Обучение нейросети
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Архитектура нейронных сетей
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="neural-network">Neural Network</h1>
+<p><strong>Нейрон</strong> — получает информацию, вычисляет взвешенную сумму входных данных и добавляет смещение.
+Все нейроны в сети делятся на три группы:</p>
+<ul>
+<li>Входные нейроны, получающие информацию из внешнего мира;</li>
+<li>Скрытые нейроны, обрабатывающие эту информацию;</li>
+<li>Выходные нейроны, которые производят вывод.</li>
+</ul>
+<p><strong>Синапсы в нейронной сети</strong> - это связи между нейронами, через которые передаются сигналы. Каждый синапс имеет вес.</p>
+<p><strong>Вес(weight)</strong> - это коэффициент, который определяет, насколько сильно один вход влияет на выход нейрона. Веса могут быть положительными или отрицательными.</p>
+<p>Веса в нейронной сети обычно инициализируются случайными значениями. В процессе обучения нейронной сети веса адаптируются таким образом, чтобы нейронная сеть могла выполнять требуемую задачу.</p>
+<p><strong>Нейрон смещения (bias)</strong> - это особый тип нейрона в нейронной сети, который не имеет входных синапсов. Его выход всегда равен 1, а значение смещения добавляется к суммарной активации взвешенных входов нейрона перед передачей ее в функцию активации.</p>
+<p>Смещение позволяет нейронной сети смещать предсказания в нужном направлении и улучшать качество обучения. Например, если нейрон должен классифицировать изображения собак и кошек, то смещение может быть использовано для того, чтобы сдвинуть график функции активации таким образом, чтобы нейрон был более склонен к классификации изображений как собак, если на изображении есть много пятен, или как кошек, если на изображении есть много полос.</p>
+<h2 id="_1">Функция Активации</h2>
+<p>Пример простого нейрона:
+$$
+y = \sum{w * x} + b
+$$</p>
+<p>В данном случае значение <span class="arithmatex">\(y\)</span> может быть в диапозоне <span class="arithmatex">\([+\infty, -\infty]\)</span></p>
+<p>Для того чтобы решать активировать нейрон или нет, нужно добавить функцию активации</p>
+<h3 id="_2">Ступенчатая функция</h3>
+<p>Если значение <span class="arithmatex">\(y &gt; 0\)</span> то активен если меньше то нет.</p>
+<p><img alt="Alt text" src="../../images/image.png" /></p>
+<h3 id="_3">Линейная функция</h3>
+<div class="arithmatex">\[
+y = kx
+\]</div>
+<p>Это функция, где активация пропорциональна входу, и мы можем объединить несколько нейронов, чтобы принять решение на основе их активации. Однако у этой функции есть проблемы. Например, градиент этой функции постоянен, что делает обучение сложным. Если происходит ошибка, изменения, внесенные для исправления этой ошибки, также будут постоянными и не зависят от входных значений.</p>
+<p>Другая проблема заключается в том, что при использовании линейных функций активации в слоях нейронов каждый следующий уровень также просто вычисляет линейные комбинации предыдущего уровня. Это означает, что даже при наличии нескольких слоев сети, она может быть эквивалентна всего лишь одному слою с линейной активацией. Таким образом, несмотря на сложность структуры, весьма ограниченный набор функций может быть представлен одним слоем.</p>
+<h3 id="_4">Сигмоидальная функция</h3>
+<div class="arithmatex">\[
+y = \frac{1}{1 + e^{-x}}
+\]</div>
+<p><img alt="Alt text" src="../../images/image2.png" /></p>
+<p>Сигмоидальная функция ограничивает выходные значения в диапазоне (0,1). Это полезно для классификации, так как ясно разграничивает прогнозы.</p>
+<p>Однако у сигмоидальной функции есть проблема "исчезающих градиентов": в областях, где функция практически горизонтальна, градиент становится крайне малым или исчезает, что затрудняет обучение сети или делает его медленным.</p>
+<h3 id="tanh">Tanh функция</h3>
+<div class="arithmatex">\[
+tanh(x) = \frac{2}{1 + e^{-2x}} - 1
+\]</div>
+<div class="arithmatex">\[
+tanh(x) = 2 * sigmoid(2x) - 1
+\]</div>
+<p><img alt="Alt text" src="../../images/image3.png" /></p>
+<p>Диапозон значений (-1, 1)
+Крутые производные =&gt; градиент сильнее</p>
+<h3 id="relu">ReLu</h3>
+<p>y = max(0, x)</p>
+<p>Relu выдает значение x если больше нуля и 0 в противном случае =&gt; диапозон (0, <span class="arithmatex">\(+\infty\)</span>)</p>
+<p><img alt="Alt text" src="../../images/image4.png" /></p>
+<h2 id="_5">Обучение нейросети</h2>
+<p>Обратное распространение ошибки(backpropagation) - это метод обучения нейронных сетей, позволяющий вычислить градиент функции потерь по всем весам сети, начиная с выходного слоя и двигаясь к входному слою. Он используется для корректировки весов сети таким образом, чтобы минимизировать ошибку предсказания на обучающих данных.</p>
+<details class="note">
+<summary>Производная функции</summary>
+<p>Производная функции в математике показывает, как быстро меняется значение функции при изменении её аргумента.</p>
+<p>Формально, если у нас есть функция <span class="arithmatex">\( f(x) \)</span>, то её производная <span class="arithmatex">\( \frac{{df}}{{dx}} \)</span> показывает скорость изменения функции <span class="arithmatex">\( f(x) \)</span> относительно её аргумента <span class="arithmatex">\( x \)</span> в каждой точке области определения функции.</p>
+<details class="note">
+<summary>Разбор формулы</summary>
+<p>Обозначение "d" в формулах часто используется для обозначения дифференциала или производной. Например, в дифференциальном исчислении "d" часто ставится перед переменной или функцией, чтобы показать, что происходит дифференцирование по отношению к этой переменной.</p>
+<p>Например:</p>
+<ul>
+<li><span class="arithmatex">\( dy \)</span> и <span class="arithmatex">\( dx \)</span> в формулах представляют дифференциалы переменных <span class="arithmatex">\( y \)</span> и <span class="arithmatex">\( x \)</span> соответственно. <span class="arithmatex">\( \frac{{dy}}{{dx}} \)</span> представляет производную функции <span class="arithmatex">\( y \)</span> относительно <span class="arithmatex">\( x \)</span>, которая показывает, как быстро меняется <span class="arithmatex">\( y \)</span> при изменении <span class="arithmatex">\( x \)</span>.</li>
+</ul>
+<p>Это обозначение "d" в формулах представляет концепцию изменения или производной по отношению к указанной переменной или времени в математических выражениях и уравнениях.</p>
+</details>
+<p>Производная может трактоваться как угловой коэффициент касательной к кривой в данной точке. Если производная положительна, функция возрастает. Если отрицательна, функция убывает. Нулевое значение производной соответствует экстремумам функции (максимум или минимум), а отсутствие производной может указывать на точки перегиба функции.</p>
+<p>Процесс дифференцирования позволяет изучать характеристики функций, их поведение, определять экстремумы, скорость изменения и многое другое, что часто применяется в математическом моделировании, физике, экономике, статистике, а также в машинном обучении при оптимизации функций и обучении моделей.</p>
+</details>
+<p><strong>Прямое распространение (forward pagation)</strong></p>
+<p>На первом этапе алгоритма происходит прямое распространение сигнала от входного слоя к выходному. Для этого используются следующие формулы:</p>
+<div class="arithmatex">\[
+i = \sum_{}w x + b
+\]</div>
+<div class="arithmatex">\[
+o = f(i)
+\]</div>
+<p>где:</p>
+<ul>
+<li><span class="arithmatex">\( i \)</span> - общий вход узла</li>
+<li><span class="arithmatex">\(o\)</span> - выход узла</li>
+<li><span class="arithmatex">\(w\)</span> - вес между узлами</li>
+<li><span class="arithmatex">\(b\)</span> - смещение узла</li>
+<li><span class="arithmatex">\(x\)</span> - входные данные</li>
+<li><span class="arithmatex">\(f(i)\)</span> - функция активации</li>
+</ul>
+<p>Далее вычесляеться ошибка между прогнозируемым и желаемым выходом сети(loss) с использованием функции потерь
+Эта ошибка затем обратно распространяется через сеть, вычисляя производные ошибки по весам каждого узла(нейрона).
+Производные ошибок вычисляются с использованием цепного правила и определяют, как каждый вес влияет на общую ошибку сети.</p>
+<details class="note">
+<summary>Цепное правило</summary>
+<p>Цепное правило (или правило дифференцирования сложной функции) - это основной принцип дифференцирования функций, состоящих из последовательности других функций. Оно используется для вычисления производных сложных функций, где функция представляет собой композицию других функций.</p>
+<p>Это правило утверждает, что производная сложной функции <span class="arithmatex">\( f(g(x)) \)</span> равна произведению производных внешней и внутренней функций:</p>
+<p>Если <span class="arithmatex">\( y = f(u) \)</span> и <span class="arithmatex">\( u = g(x) \)</span>, то производная <span class="arithmatex">\( y \)</span> по <span class="arithmatex">\( x \)</span> выражается как произведение производной <span class="arithmatex">\( y \)</span> по <span class="arithmatex">\( u \)</span> на производную <span class="arithmatex">\( u \)</span> по <span class="arithmatex">\( x \)</span>:</p>
+<div class="arithmatex">\[
+\frac{{dy}}{{dx}} = \frac{{dy}}{{du}} \cdot \frac{{du}}{{dx}}
+\]</div>
+<p>Это правило позволяет вычислять производные сложных функций путем последовательного применения производных составляющих их функций, что часто встречается в математическом анализе и применяется, например, при обратном распространении ошибки в нейронных сетях для вычисления градиента функции потерь по параметрам сети.</p>
+</details>
+<p>Для этого используются следующие формулы:</p>
+<div class="arithmatex">\[
+\frac{\partial E}{\partial w_ij} = y_i \frac{\partial E}{\partial x_j}
+\frac{\partial E}{\partial x_j} = \frac{\partial E}{\partial y_j} \frac{\partial y_j}{\partial x_j}
+\frac{\partial E}{\partial y_j} = \sum_{k \in out(j)} w_{jk} \frac{\partial E}{\partial x_k}
+\]</div>
+<p>где:</p>
+<ul>
+<li>E - функция потерь</li>
+</ul>
+<p><strong>Обратное распространение</strong></p>
+<p>Затем веса корректируются с помощью градиентного спуска: веса обновляются в направлении, которое уменьшает ошибку предсказания.</p>
+<p>Формула для вычисления градиента функции <span class="arithmatex">\( J(w) \)</span> по параметрам <span class="arithmatex">\( w \)</span> включает в себя частные производные относительно каждого параметра:</p>
+<p>Если <span class="arithmatex">\( J(w) \)</span> представляет функцию потерь (или ошибки), зависящую от параметров <span class="arithmatex">\( w \)</span> нейронной сети, то градиент <span class="arithmatex">\( \nabla J(w) \)</span> (вектор частных производных) вычисляется следующим образом:</p>
+<div class="arithmatex">\[
+\nabla J(w) = \left( \frac{{\partial J}}{{\partial w_1}}, \frac{{\partial J}}{{\partial w_2}}, \dots, \frac{{\partial J}}{{\partial w_n}} \right)
+\]</div>
+<p>где:</p>
+<ul>
+<li><span class="arithmatex">\( \nabla J(w) \)</span> - градиент функции потерь по параметрам <span class="arithmatex">\( w \)</span></li>
+<li><span class="arithmatex">\( \frac{{\partial J}}{{\partial w_i}} \)</span> - частная производная функции потерь <span class="arithmatex">\( J(w) \)</span> по параметру <span class="arithmatex">\( w_i \)</span></li>
+<li><span class="arithmatex">\( w_i \)</span> - параметры нейронной сети</li>
+</ul>
+<p>Этот градиент <span class="arithmatex">\( \nabla J(w) \)</span> затем используется в алгоритме градиентного спуска для обновления параметров сети с целью минимизации функции потерь путем коррекции весов сети в направлении, противоположном градиенту.</p>
+<p><strong>Обновление весов</strong></p>
+<p>После вычисления производных ошибки веса сети обновляются с помощью следующего правила:</p>
+<div class="arithmatex">\[
+w_ij = w_ij - \alpha \frac{\partial E}{\partial w_ij}
+\]</div>
+<p>где:</p>
+<ul>
+<li>α - скорость обучения</li>
+</ul>
+<p><strong>Повторение</strong></p>
+<p>Цикл вычисления производных ошибки и обновления весов повторяется до тех пор, пока функция потерь не достигнет заданного значения или не будет достигнуто максимальное количество итераций.</p>
+<h2 id="_6"><a href="https://www.asimovinstitute.org/neural-network-zoo/">Архитектура нейронных сетей</a></h2>
+<p><img alt="Alt text" src="../../images/image5.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/sh0tn1k"  target="_blank" rel="noopener">sh0tn1k</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

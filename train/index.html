@@ -1,0 +1,1851 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../interpretability/">
+      
+      
+        <link rel="next" href="../Supervise%20Learning/info/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.6">
+    
+    
+      
+        <title>Что такое обучение - Handbook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href=".." title="Handbook" class="md-header__button md-logo" aria-label="Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Handbook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Что такое обучение
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Ночь"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Ночь" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="День"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="День" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sh0tn1k/handbook" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sh0tn1k/handbook
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href=".." class="md-tabs__link">
+          
+  
+    
+  
+  Machine Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../uav/info/" class="md-tabs__link">
+          
+  
+    
+  
+  UAV
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../stock_manipulation/info/" class="md-tabs__link">
+          
+  
+    
+  
+  STOCK MANIPULATION
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Handbook" class="md-nav__button md-logo" aria-label="Handbook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Handbook
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sh0tn1k/handbook" title="Перейти к репозиторию" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    sh0tn1k/handbook
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href=".." class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aboutml/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Что такое модель в машинном обучение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interpretability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Интерпретируемость моделей
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Что такое обучение
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Что такое обучение
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Обобщение (generalization)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Переобучение модели / overfitting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Переобучение модели / overfitting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1-регуляризация
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2-" class="md-nav__link">
+    <span class="md-ellipsis">
+      L2-регуляризация
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#underfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Недообучения модель / underfitting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Три составляющие обучения
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_6" id="__nav_1_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Supervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_6">
+            <span class="md-nav__icon md-icon"></span>
+            Supervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Supervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обучение под присмотром
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Supervise%20Learning/klassification/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Классификаци (предсказание категории объекта)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Supervise%20Learning/regresion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Регрессия
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_7" id="__nav_1_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Self Supervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_7">
+            <span class="md-nav__icon md-icon"></span>
+            Self Supervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Self%20Supervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_8" id="__nav_1_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Unsupervised Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_8">
+            <span class="md-nav__icon md-icon"></span>
+            Unsupervised Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unsupervise%20Learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Обучение без присмотра
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unsupervise%20Learning/klassterisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Кластеризация
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unsupervise%20Learning/dimensionalityreduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Уменьшение Размерности
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_9" id="__nav_1_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Ensemble
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_9">
+            <span class="md-nav__icon md-icon"></span>
+            Ensemble
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ensemble/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ансамбль моделей
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ensemble/begging/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Беггинг
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ensemble/boosting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Бустинг
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_10" id="__nav_1_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_10">
+            <span class="md-nav__icon md-icon"></span>
+            Neural Network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nn/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Neural Network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nn/cnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Сверточные нейронные сети
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nn/edittext.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nn/rnn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Рекуррентная нейронная сеть / Recurrent neural network
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nn/attention.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_11" id="__nav_1_11_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_11">
+            <span class="md-nav__icon md-icon"></span>
+            Reinforcement Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Reinforcement%20learning/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reinforcement Learning / Обучение с подкреплением
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    UAV
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            UAV
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uav/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Mavlink
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Mavlink
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uav/mavlink/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Info
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    STOCK MANIPULATION
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            STOCK MANIPULATION
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stock_manipulation/info/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержание">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержание
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Обобщение (generalization)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Переобучение модели / overfitting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Переобучение модели / overfitting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#l1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1-регуляризация
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l2-" class="md-nav__link">
+    <span class="md-ellipsis">
+      L2-регуляризация
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#underfitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Недообучения модель / underfitting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Три составляющие обучения
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">Что такое обучение</h1>
+<p><a><b>Обучение</b></a> - это процесс определения идеальных параметров (весов(weights) и отклонений(biases)), составляющих модель. Во время обучения система считывает примеры и постепенно корректирует параметры. В обучении каждый пример используется от нескольких раз до миллиардов раз.</p>
+<p>Одно обновление параметров модели(весов и смещений) в процессе обучения = <code><b>1 итерации</b></code></p>
+<p>Размер батча(batch) определяет количество данных, обрабатываемых моделью за одну <b>итерацию</b>. Например, если размер батча(batch) равен <code>20</code>, то перед корректировкой параметров модель итерирует 20 примеров.</p>
+<p><a><b>Эпоха(Epoch)</b></a> - это полный проход по обучающему множеству, когда каждый признак обрабатывается один раз.</p>
+<div class="arithmatex">\[
+epoch = \frac{датасет}{размер батча}
+\]</div>
+<details class="note">
+<summary>Пример</summary>
+<p>Предположим следующее:</p>
+<ul>
+<li>Датасет = 1 000 примеров.</li>
+<li>Размер батча = 50 примеров.</li>
+<li>Одна эпоха = (1 000 / 50) =&gt; 20 итераций:</li>
+</ul>
+</details>
+<h2 id="generalization">Обобщение (generalization)</h2>
+<p><a href="https://serokell.io/blog/k-means-clustering-in-machine-learning">Обобщение</a> - это способности вашей модели должным образом адаптироваться к новым, ранее неизвестным данным</p>
+<p><img alt="Alt text" src="../images/High%20bias.webp" /></p>
+<h2 id="overfitting">Переобучение модели / overfitting</h2>
+<p>Переобучение (overfitting) - это явление, при котором модель машинного обучения слишком сильно адаптируется к обучающим данным, в результате чего она плохо работает на новых данных.</p>
+<details class="info">
+<summary>Пример</summary>
+<p>Рассмотрим задачу классификации рыб и птиц. У нас есть набор данных, в котором представлены примеры рыб и птиц с различными признаками, например, весом, окрасом, местом обитания и т.д.</p>
+<p>Модель машинного обучения может научиться различать рыб и птиц на этих данных, выявив закономерности между признаками и классами. Например, она может научиться определять, что все рыбы умеют плавать.</p>
+<p>На обучающих данных эта модель будет работать идеально. Она будет правильно определять, что рыба умеет плавать, а птица - нет.</p>
+<p>Однако, когда мы встретим утку, которая не встречалась ранее и она умеет плавать, то модель ошибочно определит утку как рыбу.</p>
+<p>Это произойдет потому, что модель слишком сильно учла закономерность, что все кто плавают рыбы </p>
+<p>Представьте, что вы назначаете уникальный идентификатор каждому примеру и сопоставляете каждый идентификатор с его собственной функцией. Если вы не укажете функцию регуляризации, модель станет полностью подходящей. Это связано с тем, что модель будет пытаться свести потери к нулю во всех примерах и никогда не добьется этого, приводя веса для каждой функции индикатора к +бесконечности или -бесконечности. Это может произойти в многомерных данных с пересечениями признаков, когда существует огромная масса редких пересечений, каждое из которых происходит только в одном примере.</p>
+</details>
+<p>Наиболее распространенными способами борьбы с переобучение:</p>
+<ul>
+<li>L1-регуляризация штрафует модель за абсолютное значение весов признаков.</li>
+<li>L2-регуляризация штрафует модель за квадрат весов признаков.</li>
+</ul>
+<p>Без регуляризации модель будет пытаться минимизировать функцию потерь, увеличивая веса признаков, которые она считает важными. Это может привести к переобучению, когда модель слишком хорошо подгоняется под обучающую выборку, но при этом плохо работает на новых данных.</p>
+<h3 id="l1-">L1-регуляризация</h3>
+<p><span class="arithmatex">\(L_1\)</span>регуляризация, является методом регуляризации в машинном обучении, который добавляет штраф к функции потерь модели, пропорциональный сумме абсолютных значений весовых коэффициентов. Это приводит к тому, что некоторые веса становятся нулевыми, позволяя модели автоматически выбирать наиболее важные признаки и игнорировать менее значимые. Таким образом, L1 регуляризация обеспечивает отбор признаков и упрощение модели, что может помочь в предотвращении переобучения.</p>
+<p>Штраф, который представлен суммой абсолютных значений весовых коэффициентов:</p>
+<div class="arithmatex">\[
+L1 = \lambda \sum_{i=1}^{n} |w_i|
+\]</div>
+<p>Здесь:</p>
+<ul>
+<li><span class="arithmatex">\( \lambda \)</span> - это параметр регуляризации, который регулирует силу штрафа;</li>
+<li><span class="arithmatex">\( n \)</span> - количество признаков в модели;</li>
+<li><span class="arithmatex">\( w_i \)</span> - весовой коэффициент признака.</li>
+</ul>
+<p>Добавление этого штрафа к функции потерь помогает модели выбирать наиболее важные признаки путем уменьшения весов нерелевантных признаков до нуля.</p>
+<h3 id="l2-">L2-регуляризация</h3>
+<p>L2 регуляризация, представляет собой метод регуляризации в машинном обучении, при котором к функции потерь модели добавляется штраф, пропорциональный сумме квадратов весовых коэффициентов.</p>
+<p>Формула для L2 регуляризации выглядит так:</p>
+<div class="arithmatex">\[
+L2 = \lambda \sum_{i=1}^{n} w_i^2
+\]</div>
+<p>Здесь:</p>
+<ul>
+<li><span class="arithmatex">\( \lambda \)</span> - это параметр регуляризации, который контролирует силу штрафа;</li>
+<li><span class="arithmatex">\( n \)</span> - количество признаков в модели;</li>
+<li><span class="arithmatex">\( w_i \)</span> - весовой коэффициент признака.</li>
+</ul>
+<p>В отличие от L1 регуляризации, L2 не стремится обнулить веса признаков, а скорее уменьшает их значения, делая их ближе к нулю без полного исключения из модели. Регуляризация L2 также помогает предотвратить переобучение, улучшая обобщающую способность линейных моделей.</p>
+<details class="info">
+<summary>Пример</summary>
+<p>Рассмотрим пример задачи классификации. Пусть мы хотим построить модель, которая предсказывает, будет ли человек покупать товар или нет.
+У нас есть обучающая выборка, состоящая из </p>
+<p>m примеров. Каждый пример содержит информацию о товаре, а также о том, купил ли человек этот товар.
+Пусть у нас есть </p>
+<p>n признаков, которые описывают товар. Например, это могут быть такие признаки, как цена товара, отзывы о товаре, наличие скидки и т.д.
+Без регуляризации модель может решить, что вес признака "цена товара" должен быть очень большим. Это означает, что модель будет предсказывать, что люди будут покупать товар только в том случае, если он будет очень дешевым.
+Регуляризация будет штрафовать модель за это. В результате модель уменьшит вес признака "цена товара". В результате модель будет предсказывать, что люди будут покупать товар и по более высокой цене.
+Таким образом, регуляризация помогает моделям машинного обучения избегать переобучения, заставляя их учитывать все возможные факторы, а не только один или два.</p>
+</details>
+<h2 id="underfitting">Недообучения модель / underfitting</h2>
+<p>Недообучение модели в машинном обучении - это когда модель не может определить значимую связь между входными и выходными данными. </p>
+<h2 id="_2">Три составляющие обучения</h2>
+<p><a><b>Цель машинного обучения</b></a> — предсказать результат по входным данным. Чем разнообразнее входные данные, тем проще машине найти закономерности и тем точнее результат.</p>
+<dl>
+<dt><code>Датасеты / Данные</code></dt>
+<dd>
+<div class="admonition warning">
+<p class="admonition-title">Важно</p>
+<p>Большое количество данных и качество данных(Хотим определять спам — нужны примеры спам-писем, предсказывать курс акций — нужна история цен, узнать интересы пользователя — нужны его лайки или посты.)</p>
+</div>
+<p>Семпл — это просто один экземпляр данных, который используется для обучения или тестирования модели машинного обучения. Он представляет собой набор значений признаков и целевой переменной. Например, в задаче распознавания изображений признаки могут включать размер изображения, цвет шерсти кота и другие характеристики.</p>
+<p>Так как прогонять весь датасет через модель ресурсоемкий процесс, то датасет делят на <b>батчи(batch)</b> или <b>мини-батчи(mini-batch)</b></p>
+<p>Традиционно примеры в наборе данных делятся на следующие три различных подмножества:</p>
+<ul>
+<li><b>Обучающее множество(training set)</b> - подмножество набора данных, используемое для обучения модели.</li>
+<li><b>Валидационный набор(validation set)</b> - подмножество набора данных, на котором оцениваются результаты обучающего набора. Как правило, обученная модель оценивается на валидационном наборе несколько раз, прежде чем модель будет оценена на тестовом наборе.</li>
+<li><b>Tестовый набор(test set)</b> - подмножество набора данных, на котором перепроверяется оценка модели на данных которая она не видела после того, как модель «прошла» набор проверки. </li>
+</ul>
+<p><img alt="Image" src="https://developers.google.com/static/machine-learning/crash-course/images/PartitionThreeSets.svg?hl=ru" /></p>
+<details class="note">
+<summary>Кросс-валидация (Cross-validation)</summary>
+<p>Кросс-валидация заключается в разделении имеющегося набора данных на две или более части. Одна часть используется для обучения модели, а другая – для проверки ее качества. Этот процесс повторяется несколько раз с использованием разных разбиений данных, чтобы получить более надежную оценку производительности модели.</p>
+<p>Данные: A B C D E</p>
+<table>
+<thead>
+<tr>
+<th>Обучение</th>
+<th>Валидация</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A B C D</td>
+<td>E</td>
+</tr>
+<tr>
+<td>A B C E</td>
+<td>D</td>
+</tr>
+<tr>
+<td>A B D E</td>
+<td>C</td>
+</tr>
+<tr>
+<td>A C D E</td>
+<td>B</td>
+</tr>
+<tr>
+<td>B C D E</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p><h3>Hold-out</h3></p>
+<p>Метод hold-out представляет из себя простое разделение на train и test:</p>
+<p><img alt="Alt text" src="Total dataset.png" /></p>
+<p>Чтобы оценить модель, вы обучаете её на тренировочном множестве, а результаты измеряете на тестовом. Важно перед разделением на тренировочное и тестовое множества перемешать семплы. </p>
+<details class="note">
+<summary>Почему важно перемешивать?</summary>
+<p>Когда данные не перемешиваются перед обучением модели, это влияет на то, как информация используется в процессе обучения. Например, если данные были упорядочены (например, сначала кошки, потом собаки), модель может выучить закономерности исходя из этого порядка, что может привести к проблемам в предсказаниях. Это особенно критично для моделей, использующих градиентный спуск, так как они могут застрять в определённых шаблонах данных и переобучиться, не учитывая всю информацию из датасета.</p>
+<p>ЕСЛИ ДАННЫХ МНОГО, ТО МОЖНО ИСПОЛЬЗОВАТЬ ВАЛИДАЦИОННОЕ  МНОЖЕСТВО</p>
+<p>При выборе моделей для вашей задачи оптимизируйте их на валидационном наборе данных, а финальное сравнение моделей проводите на тестовом наборе. </p>
+<p>Оптимизация включает подбор гиперпараметров, архитектуры (для нейросетей), и определение оптимального порога для максимизации целевой метрики. </p>
+<p>Если оптимизировать модели и сравнивать их на одном наборе данных, можно нечаянно включить информацию о тестовом наборе и получить менее точные результаты на новых данных.</p>
+</details>
+<p>Для окончательного применения найденную лучшую модель можно обучить на всех имеющихся данных. Правда, вы не сможете оценить качество получившейся модели, так как у вас уже не будет тестового множества. Чтобы примерно оценить, как будет вести себя модель при добавлении новых данных, вы можете построить кривые обучения: графики качества модели на трейне и на тесте в зависимости от числа поданных семплов на вход. Кривые обучения могут выглядеть следующим образом</p>
+<p><img alt="Alt text" src="Training score.png" /></p>
+<p>Модель слева показала итоговые результаты явно хуже модели справа (и график качества на валидации у неё близок к плато, хотя и продолжает расти), а качество модели справа могло бы ещё вырасти при добавлении дополнительных семплов (качество на трейне константно высокое, а на валидации возрастает).</p>
+<p><h3>Стратификация (stratification)</h3>
+<strong>Стратификация</strong> - это способ разделить данные на тренировочную и тестовую выборки, сохраняя соотношение классов в исходном наборе данных.</p>
+<p><strong>Случайное разделение</strong> может привести к тому, что распределение классов в тренировочной и тестовой выборках будет отличаться от распределения классов в исходном наборе данных. Например, в наборе данных Iris три класса цветов: Setosa, Versicolor и Virginica. Если мы случайно разделим этот набор данных на тренировочную и тестовую выборки, то вполне может оказаться, что в тренировочной выборке окажется больше цветов одного класса, чем в тестовой. Это может привести к тому, что модель машинного обучения, обученная на тренировочной выборке, будет плохо работать на тестовой.</p>
+<p><strong>Стратификация</strong> помогает избежать этой проблемы. Она заключается в том, что при разделении данных на тренировочную и тестовую выборки сначала разбивают исходный набор данных на группы, называемые <strong>стратами</strong>. Затем выбираются тренировочная и тестовая выборки таким образом, чтобы в каждой из них было пропорциональное количество объектов из каждой страты.</p>
+<p><strong>Например</strong>, если в наборе данных Iris три страты, соответствующие каждому классу цветов, то при стратификации тренировочная выборка будет содержать 33% объектов каждого класса, а тестовая выборка - 17% объектов каждого класса.</p>
+<p><strong>Стратификация</strong> особенно полезна при работе с большими наборами данных, в которых один класс встречается намного чаще других. В таких случаях случайное разделение может привести к тому, что модель машинного обучения будет плохо обучаться на редких классах. Стратификация помогает избежать этой проблемы, обеспечивая, чтобы в тренировочной выборке было достаточно объектов из каждого класса.</p>
+<p><h3>k-Fold?</h3></p>
+<p>k-Fold — это один из методов кросс-валидации. Он заключается в следующем:</p>
+<ol>
+<li>Датасет разбивается на k равных частей (фолдов).</li>
+<li>На каждой итерации обучения модель обучается на k-1 фолдах, а тестируется на оставшемся фолде.</li>
+<li>В итоге получается k тестовых результатов, которые затем усредняются.</li>
+</ol>
+<p><strong>Как выбрать модель после k-Fold?</strong></p>
+<p>После применения k-Fold для одной модели у вас на руках останется несколько экземпляров этой модели, обученных на разных подмножествах трейна. Вы можете выбрать один из следующих вариантов:</p>
+<ul>
+<li>Сделать предсказание с помощью усреднения предсказаний этих экземпляров.</li>
+<li>Выбрать экземпляр с лучшим скором на тестовом фолде.</li>
+<li>Заново обучить модель уже на всех фолдах и делать предсказания уже этой моделью.</li>
+</ul>
+<p>В методе k-fold <strong>k</strong> - это количество фолдов, на которые разбивается датасет. <strong>k</strong> фолдов означает, что на каждой итерации обучения модель обучается на <strong>k-1</strong> фолдах, а тестируется на оставшемся фолде.</p>
+<p>Например, если <strong>k=5</strong>, то датасет будет разбит на 5 фолдов по 20% данных в каждом. На первой итерации обучения модель будет обучаться на 80% данных, а тестироваться на оставшихся 20%. На второй итерации модель будет обучаться на 20% данных, которые не были использованы на первой итерации, а тестироваться на оставшихся 80%. И так далее.</p>
+<p>Чем больше <strong>k</strong>, тем более точно будет оцениваться качество модели. Однако, при увеличении <strong>k</strong> также увеличивается количество итераций обучения и тестирования, что может привести к увеличению вычислительных затрат.</p>
+<p>В реальных задачах обычно выбирают <strong>k=5</strong> или <strong>k=10</strong>.</p>
+<p><h3>LOO-метод</h3>
+<strong>LOO-метод</strong> - это способ проверить, насколько хорошо модель предсказывает данные, которые она не видела раньше. Он работает так: из набора данных отбирают один образец, обучают модель на оставшихся образцах, а затем проверяют, насколько точно модель предсказывает значение этого отложенного образца.</p>
+<p><strong>LOO-метод может быть полезен, если у вас очень мало данных.</strong> В этом случае вы хотите использовать все данные для обучения модели, а LOO-метод позволяет вам это сделать, откладывая только один образец на каждой итерации.</p>
+<p><strong>Однако LOO-метод неприменим для средних и больших задач.</strong> Это связано с тем, что количество итераций будет равно количеству образцов в наборе данных. Если набор данных большой, то это может занять много времени и ресурсов.</p>
+<details class="note">
+<summary>Пример</summary>
+<p>Представим, что у нас есть набор данных из 10 образцов. Мы хотим использовать LOO-метод, чтобы проверить, насколько хорошо модель предсказывает значение цвета волос.</p>
+<p>На первой итерации мы откладываем первый образец. Затем мы обучаем модель на оставшихся 9 образцах. После этого мы используем модель, чтобы предсказать значение цвета волос первого образца.</p>
+<p>На второй итерации мы откладываем второй образец и повторяем процесс.</p>
+<p>Мы продолжаем этот процесс, пока не отложим все 10 образцов.</p>
+<p>В конце мы получим 10 значений, которые показывают, насколько точно модель предсказывает значение цвета волос каждого отложенного образца.</p>
+</details>
+<p><h3>Stratified k-Fold</h3>
+Метод stratified k-Fold — это метод k-Fold, использующий стратификацию при разбиении на фолды: каждый фолд содержит примерно такое же соотношение классов, как и всё исходное множество. Такой подход может потребоваться в случае, например, очень несбалансированного соотношения классов, когда при обычном random split некоторые фолды могут либо вообще не содержать семплов каких-то классов, либо содержать их слишком мало.</p>
+</details>
+</dd>
+<dt><code>Признаки / Фичи</code></dt>
+<dd>
+<p><b>Признак</b> - это входная переменная, то есть переменная x в простой линейной регрессии. В простом проекте машинного обучения может
+использоваться один признак, в более сложном проекте машинного обучения - миллионы признаков, указанных как: x1, x2, … xn</p>
+<p>Для работы с объектом модель должна опираться на какие-то его свойства, например, доход человека, цвет левого верхнего пикселя на изображении
+или частоту встречаемости слова «интеграл» в тексте. Эти свойства обычно называются признаками, а совокупность свойств, которые мы выделили у объекта – его признаковым описанием.</p>
+<p><b>Метка</b> — это то, что мы предсказываем — переменная y в простой линейной регрессии. Метка может быть будущей ценой на пшеницу, видом животного, изображенного на картинке, значением аудиоклипа или чем угодно.</p>
+<p>Разновидности фич:</p>
+<ul>
+<li><b>Численные</b> – например, рост или доход. Иногда отдельно выделяют вещественные и целочисленные признаки.</li>
+<li><b>Категориальные</b> - признаки принимают значения из некоторого дискретного множества. Например, профессия человека или день недели.</li>
+</ul>
+<p><a href="https://serokell.io/blog/k-means-clustering-in-machine-learning"><b>feature engineering</b></a> - процесс дополнительных усилий для выявления признаков у объекта</p>
+</dd>
+<dt><code>Алгоритм машинного обучения (learning algorithm)</code></dt>
+<dd>
+<p>Алгоритм обучения — это процедура, которая превращает обучающую выборку в обученную модель.</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/sh0tn1k"  target="_blank" rel="noopener">sh0tn1k</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "navigation.indexes", "navigation.path", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e1c3ead8.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
